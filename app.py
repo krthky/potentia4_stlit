@@ -103,7 +103,7 @@ def call_api_and_get_csv(uploaded_files, api_url):
 
     return response
 
-api_url = f'http://54.206.196.250/uploadfiles_openai_csv?prompt={prompt_text}' if api_choice == "OpenAI GPT-4-Turbo" else f'http://54.206.196.250/uploadfiles_claude_csv?prompt={prompt_text}'
+api_url = f'http://3.25.85.91/uploadfiles_openai_csv?prompt={prompt_text}' if api_choice == "OpenAI GPT-4-Turbo" else f'http://3.25.85.91/uploadfiles_claude_csv?prompt={prompt_text}'
 
 if st.button("Submit"):
     if uploaded_files:
