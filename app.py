@@ -93,23 +93,21 @@ if use_default_prompt:
 else:
     prompt_text = st.text_area("Prompt Text", value=f"{default_text}")
 
-def call_api_and_get_csv(uploaded_files, prompt, api_url):
+def call_api_and_get_csv(uploaded_files, api_url):
     # Prepare the files for uploading
     files = [('files', (uploaded_file.name, uploaded_file, uploaded_file.type)) for uploaded_file in uploaded_files]
 
-    # Add the prompt if available
-    data = {'prompt': prompt}
 
     # Making a POST request to the API
-    response = requests.post(api_url, files=files, data=data)
+    response = requests.post(api_url, files=files)
 
     return response
 
-api_url = 'http://54.206.196.250/uploadfiles_openai_csv' if api_choice == "OpenAI GPT-4-Turbo" else 'http://54.206.196.250/uploadfiles_claude_csv'
+api_url = f'http://54.206.196.250/uploadfiles_openai_csv?prompt={prompt_text}' if api_choice == "OpenAI GPT-4-Turbo" else f'http://54.206.196.250/uploadfiles_claude_csv?prompt={prompt_text}'
 
 if st.button("Submit"):
     if uploaded_files:
-        response = call_api_and_get_csv(uploaded_files, prompt = prompt_text, api_url = api_url)
+        response = call_api_and_get_csv(uploaded_files, api_url = api_url)
         # Check if the request was successful
         if response.status_code == 200:
             # Create a download button for the CSV file
